@@ -81,7 +81,7 @@ const LOCAL_FACTS: Record<string, { truths: { text: string; explanation: string 
       { text: 'The oldest known musical instrument is a 40,000-year-old flute made from a vulture\'s wing bone.', explanation: 'This flute was discovered in Germany and dates back to the Upper Paleolithic period.' },
       { text: 'Beethoven continued composing masterpieces even after becoming completely deaf.', explanation: 'He composed some of his greatest works, including his Ninth Symphony, while completely deaf.' },
     ],
-    lie: { text: 'Mozart composed his first symphony at age 15.', explanation: 'This is false - Mozart composed his first symphony at age 8 (Symphony No. 1 in E flat major) in 1764.' },
+    lie: { text: 'Mozart composed his first symphony at age 15.', explanation: 'This is false - Mozart composed his first symphony at age 8 (Symphony No. 1 in E-flat major) in 1764.' },
   },
   Nature: {
     truths: [
