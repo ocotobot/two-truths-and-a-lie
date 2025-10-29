@@ -2,7 +2,7 @@ import { Card } from '@/components/ui/card';
 import { motion } from 'framer-motion';
 import { CheckCircle, XCircle } from '@phosphor-icons/react';
 import type { Statement } from '@/lib/types';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface StatementCardProps {
   statement: Statement;
@@ -22,6 +22,7 @@ export function StatementCard({
   disabled
 }: StatementCardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isSelected = selectedIndex === index;
   const wasCorrectGuess = isRevealed && isSelected && statement.isLie;
   const wasWrongGuess = isRevealed && isSelected && !statement.isLie;
@@ -31,16 +32,27 @@ export function StatementCard({
     if (!disabled && !isRevealed) {
       setIsFlipped(true);
       // Delay the onSelect call to allow flip animation to complete
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         onSelect();
       }, 600);
     }
   };
 
   // Reset flip state when starting a new round
-  if (!isRevealed && isFlipped) {
-    setIsFlipped(false);
-  }
+  useEffect(() => {
+    if (!isRevealed && isFlipped) {
+      setIsFlipped(false);
+    }
+  }, [isRevealed, isFlipped]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <motion.div
@@ -93,7 +105,6 @@ export function StatementCard({
             position: 'absolute',
             top: 0,
             left: 0,
-            right: 0,
             width: '100%',
           }}
         >
