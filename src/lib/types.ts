@@ -1,4 +1,4 @@
-export type Topic = 'Animals' | 'History' | 'Space' | 'Food' | 'Sports' | 'Movies' | 'Science' | 'Geography';
+export type Topic = 'Animals' | 'Art' | 'Food' | 'Geography' | 'History' | 'Literature' | 'Movies' | 'Music' | 'Nature' | 'Science' | 'Space' | 'Sports' | 'Technology';
 
 export interface Statement {
   text: string;

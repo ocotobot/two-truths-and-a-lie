@@ -11,6 +11,15 @@ const LOCAL_FACTS: Record<string, { truths: { text: string; explanation: string 
     ],
     lie: { text: 'Bats are blind and navigate only by touch.', explanation: 'This is false - most bats can see quite well, and they use echolocation (sound) rather than touch to navigate in the dark.' },
   },
+  Art: {
+    truths: [
+      { text: 'Vincent van Gogh only sold one painting during his lifetime.', explanation: 'Despite creating over 900 paintings, he famously sold only "The Red Vineyard" while alive.' },
+      { text: 'The Mona Lisa has no eyebrows.', explanation: 'It\'s believed they may have faded over time or were never painted, as it was fashionable to pluck them in Renaissance Florence.' },
+      { text: 'Leonardo da Vinci could write with one hand and draw with the other simultaneously.', explanation: 'He was ambidextrous and could perform complex tasks with both hands at once.' },
+      { text: 'The Scream by Edvard Munch was stolen twice from museums.', explanation: 'It was stolen in 1994 and again in 2004, both times being recovered.' },
+    ],
+    lie: { text: 'Pablo Picasso was born in France.', explanation: 'This is false - Picasso was born in Málaga, Spain in 1881, though he spent most of his adult life in France.' },
+  },
   History: {
     truths: [
       { text: 'The Great Wall of China was built over many centuries by different dynasties.', explanation: 'Construction began as early as the 7th century BC and continued through multiple dynasties.' },
@@ -19,6 +28,15 @@ const LOCAL_FACTS: Record<string, { truths: { text: string; explanation: string 
       { text: 'Cleopatra lived closer in time to the first Pizza Hut than to the building of the Great Pyramids.', explanation: 'Cleopatra lived around 30 BC, while the pyramids were built around 2500 BC. Pizza Hut was founded in 1958.' },
     ],
     lie: { text: 'Vikings wore horned helmets into battle.', explanation: 'This is false - horned helmets are a 19th-century artistic invention. No authentic Viking helmet has ever been found with horns.' },
+  },
+  Literature: {
+    truths: [
+      { text: 'Dr. Seuss wrote "Green Eggs and Ham" using only 50 different words.', explanation: 'He wrote it on a bet with his publisher that he couldn\'t write a book using fewer than 50 words.' },
+      { text: 'Agatha Christie is the best-selling novelist of all time.', explanation: 'Her novels have sold over 2 billion copies worldwide, making her the best-selling fiction writer.' },
+      { text: 'Mary Shelley wrote "Frankenstein" when she was only 18 years old.', explanation: 'She began writing the novel in 1816 during a writing competition with Lord Byron and others.' },
+      { text: 'The longest sentence in literature is 823 words long and appears in "Les Misérables".', explanation: 'Victor Hugo wrote this extremely long sentence in his famous novel.' },
+    ],
+    lie: { text: 'Shakespeare invented the word "selfie".', explanation: 'This is false - "selfie" is a modern term that emerged in the 2000s with digital photography and social media.' },
   },
   Space: {
     truths: [
@@ -56,6 +74,24 @@ const LOCAL_FACTS: Record<string, { truths: { text: string; explanation: string 
     ],
     lie: { text: 'Color movies were invented after sound was added to films.', explanation: 'This is false - hand-colored films existed in the 1890s, while synchronized sound wasn\'t widely used until the late 1920s.' },
   },
+  Music: {
+    truths: [
+      { text: 'The Beatles originally called themselves "The Quarrymen".', explanation: 'John Lennon formed the group in 1956 as "The Quarrymen" before they evolved into The Beatles.' },
+      { text: 'A grand piano has over 12,000 individual parts.', explanation: 'Modern grand pianos contain approximately 12,000 parts, including over 200 strings.' },
+      { text: 'The oldest known musical instrument is a 40,000-year-old flute made from a vulture\'s wing bone.', explanation: 'This flute was discovered in Germany and dates back to the Upper Paleolithic period.' },
+      { text: 'Beethoven continued composing masterpieces even after becoming completely deaf.', explanation: 'He composed some of his greatest works, including his Ninth Symphony, while completely deaf.' },
+    ],
+    lie: { text: 'Mozart composed his first symphony at age 15.', explanation: 'This is false - Mozart composed his first symphony at age 8 (Symphony No. 1 in E-flat major) in 1764.' },
+  },
+  Nature: {
+    truths: [
+      { text: 'Bamboo is the fastest-growing plant on Earth.', explanation: 'Some species of bamboo can grow up to 35 inches in a single day under optimal conditions.' },
+      { text: 'A group of flamingos is called a "flamboyance".', explanation: 'This collective noun perfectly captures their vibrant pink color and elegant presence.' },
+      { text: 'Trees can communicate with each other through an underground network of fungi.', explanation: 'This "wood wide web" allows trees to share nutrients and warning signals about threats.' },
+      { text: 'The Amazon rainforest produces about 20% of the Earth\'s oxygen.', explanation: 'Through photosynthesis, the Amazon generates a significant portion of atmospheric oxygen.' },
+    ],
+    lie: { text: 'All trees lose their leaves in winter.', explanation: 'This is false - only deciduous trees lose their leaves seasonally, while evergreen trees keep their leaves year-round.' },
+  },
   Science: {
     truths: [
       { text: 'Water expands when it freezes, unlike most substances.', explanation: 'The crystalline structure of ice makes it less dense than liquid water, causing it to float.' },
@@ -73,6 +109,15 @@ const LOCAL_FACTS: Record<string, { truths: { text: string; explanation: string 
       { text: 'Point Nemo is so remote that the nearest humans are often astronauts.', explanation: 'This Pacific Ocean location is farther from land than any other point, often making ISS astronauts the closest humans.' },
     ],
     lie: { text: 'The Great Wall of China is visible from space with the naked eye.', explanation: 'This is false - while many human structures are visible from low Earth orbit, the Great Wall is too narrow and often blends with the surrounding terrain.' },
+  },
+  Technology: {
+    truths: [
+      { text: 'The first computer mouse was made of wood.', explanation: 'Douglas Engelbart invented the first mouse in 1964, and it had a wooden shell with two metal wheels.' },
+      { text: 'The "@" symbol is called "at" in English but has different names in other languages.', explanation: 'In Dutch it\'s "apenstaart" (monkey tail), in Italian "chiocciola" (snail), and in Greek "papaki" (little duck).' },
+      { text: 'The first 1GB hard drive weighed over 500 pounds.', explanation: 'IBM\'s first gigabyte hard drive from 1980 weighed 550 pounds and cost $40,000.' },
+      { text: 'Email was invented before the World Wide Web.', explanation: 'Email was created in 1971, while the World Wide Web wasn\'t invented until 1989 by Tim Berners-Lee.' },
+    ],
+    lie: { text: 'Bill Gates invented the computer mouse.', explanation: 'This is false - the computer mouse was invented by Douglas Engelbart in 1964, long before Microsoft was founded.' },
   },
 };
 
@@ -147,13 +192,18 @@ export async function generateStatements(topic: string): Promise<Statement[]> {
 
 export const TOPICS: Topic[] = [
   'Animals',
-  'History', 
-  'Space',
+  'Art',
   'Food',
-  'Sports',
+  'Geography',
+  'History',
+  'Literature',
   'Movies',
+  'Music',
+  'Nature',
   'Science',
-  'Geography'
+  'Space',
+  'Sports',
+  'Technology'
 ] as const;
 
 export function getRandomTopic(): Topic {
