@@ -104,49 +104,12 @@ async function generateLocalStatements(topic: string): Promise<Statement[]> {
 }
 
 export async function generateStatements(topic: string): Promise<Statement[]> {
-  // If the spark runtime (LLM) is available, prefer the LLM path. Otherwise return a deterministic local fallback.
-  const globalAny: any = globalThis as any;
-  if (!globalAny.spark || typeof globalAny.spark.llm !== 'function') {
-    try {
-      return await generateLocalStatements(topic);
-    } catch (err) {
-      console.error('Local fallback failed:', err);
-      throw err;
-    }
-  }
-
-    const prompt = globalAny.spark.llmPrompt`You are creating a "Two Truths and a Lie" game. Generate exactly 3 interesting statements about "${topic}":
-
-Return a JSON object with a single property "statements" containing an array of exactly 3 objects, each with:
-
-Randomize which position (1st, 2nd, or 3rd) the lie appears in.
-
-Example format:
-{
-  "statements": [
-    {"text": "Statement here", "isLie": false, "explanation": "This is true because..."},
-    {"text": "Statement here", "isLie": true, "explanation": "This is false because..."},
-    {"text": "Statement here", "isLie": false, "explanation": "This is true because..."}
-  ]
-}`;
-
+  // Always use local statement generation since we don't have LLM access
   try {
-      const response = await globalAny.spark.llm(prompt, 'gpt-4o', true);
-    const data = JSON.parse(response);
-
-    if (!data.statements || !Array.isArray(data.statements) || data.statements.length !== 3) {
-      throw new Error('Invalid response format');
-    }
-
-    const lieCount = data.statements.filter((s: Statement) => s.isLie).length;
-    if (lieCount !== 1) {
-      throw new Error('Must have exactly one lie');
-    }
-
-    return data.statements;
-  } catch (error) {
-    console.error('Error generating statements:', error);
-    throw error;
+    return await generateLocalStatements(topic);
+  } catch (err) {
+    console.error('Failed to generate statements:', err);
+    throw new Error('Failed to generate statements: ' + (err instanceof Error ? err.message : 'Unknown error'));
   }
 }
 
@@ -159,7 +122,7 @@ export const TOPICS: Topic[] = [
   'Movies',
   'Science',
   'Geography'
-];
+] as const;
 
 export function getRandomTopic(): Topic {
   return TOPICS[Math.floor(Math.random() * TOPICS.length)];

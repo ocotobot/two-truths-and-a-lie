@@ -28,14 +28,22 @@ function App() {
 
     try {
       toast.loading('Generating statements...', { id: 'loading' });
+      console.log('Generating statements for topic:', topic);
       const newStatements = await generateStatements(topic);
+      console.log('Generated statements:', newStatements);
+      
+      if (!newStatements || !Array.isArray(newStatements) || newStatements.length !== 3) {
+        throw new Error(`Invalid statements generated: ${JSON.stringify(newStatements)}`);
+      }
+      
       setStatements(newStatements);
       setGameState('playing');
       toast.dismiss('loading');
     } catch (error) {
-      toast.error('Failed to generate statements. Please try again.', { id: 'loading' });
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Statement generation error:', errorMessage);
+      toast.error(`Failed to generate statements: ${errorMessage}`, { id: 'loading' });
       setIsLoading(false);
-      console.error(error);
     } finally {
       setIsLoading(false);
     }
