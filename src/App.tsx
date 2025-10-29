@@ -31,7 +31,7 @@ function App() {
     try {
       toast.loading('Generating statements...', { id: 'loading' });
       console.log('Generating statements for topic:', topic, 'difficulty:', difficulty);
-      const newStatements = await generateStatements(topic, difficulty || 'medium');
+      const newStatements = await generateStatements(topic, difficulty);
       console.log('Generated statements:', newStatements);
       
       if (!newStatements || !Array.isArray(newStatements) || newStatements.length !== 3) {
@@ -120,7 +120,7 @@ function App() {
               className="space-y-6"
             >
               <DifficultySelector
-                selectedDifficulty={difficulty || 'medium'}
+                selectedDifficulty={difficulty}
                 onSelectDifficulty={setDifficulty}
                 disabled={isLoading}
               />
@@ -141,7 +141,7 @@ function App() {
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <h2 className="text-2xl font-semibold">Topic: {currentTopic}</h2>
                   <span className="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary capitalize">
-                    {difficulty || 'medium'}
+                    {difficulty}
                   </span>
                 </div>
                 <p className="text-muted-foreground">
