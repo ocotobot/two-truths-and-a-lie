@@ -7,14 +7,16 @@ import { TopicSelector } from '@/components/TopicSelector';
 import { StatementCard } from '@/components/StatementCard';
 import { ScoreDisplay } from '@/components/ScoreDisplay';
 import { HowToPlay } from '@/components/HowToPlay';
+import { DifficultySelector } from '@/components/DifficultySelector';
 import { generateStatements } from '@/lib/game';
 import { ArrowClockwise } from '@phosphor-icons/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
-import type { Statement, Score, GameState } from '@/lib/types';
+import type { Statement, Score, GameState, Difficulty } from '@/lib/types';
 
 function App() {
   const [score, setScore] = useKV<Score>('game-score', { correct: 0, incorrect: 0 });
+  const [difficulty, setDifficulty] = useKV<Difficulty>('game-difficulty', 'medium');
   const [gameState, setGameState] = useState<GameState>('topic-selection');
   const [currentTopic, setCurrentTopic] = useState<string>('');
   const [statements, setStatements] = useState<Statement[]>([]);
@@ -28,8 +30,8 @@ function App() {
 
     try {
       toast.loading('Generating statements...', { id: 'loading' });
-      console.log('Generating statements for topic:', topic);
-      const newStatements = await generateStatements(topic);
+      console.log('Generating statements for topic:', topic, 'difficulty:', difficulty);
+      const newStatements = await generateStatements(topic, difficulty || 'medium');
       console.log('Generated statements:', newStatements);
       
       if (!newStatements || !Array.isArray(newStatements) || newStatements.length !== 3) {
@@ -117,6 +119,11 @@ function App() {
               exit={{ opacity: 0 }}
               className="space-y-6"
             >
+              <DifficultySelector
+                selectedDifficulty={difficulty || 'medium'}
+                onSelectDifficulty={setDifficulty}
+                disabled={isLoading}
+              />
               <h2 className="text-2xl font-semibold text-center">Choose a Topic</h2>
               <TopicSelector onSelectTopic={handleTopicSelect} disabled={isLoading} />
             </motion.div>
@@ -131,7 +138,12 @@ function App() {
               className="space-y-6"
             >
               <div className="text-center">
-                <h2 className="text-2xl font-semibold mb-2">Topic: {currentTopic}</h2>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <h2 className="text-2xl font-semibold">Topic: {currentTopic}</h2>
+                  <span className="px-3 py-1 text-xs font-semibold rounded-full bg-primary/10 text-primary capitalize">
+                    {difficulty || 'medium'}
+                  </span>
+                </div>
                 <p className="text-muted-foreground">
                   {gameState === 'playing'
                     ? 'Which statement is the lie?'

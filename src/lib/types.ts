@@ -1,5 +1,7 @@
 export type Topic = 'Animals' | 'History' | 'Space' | 'Food' | 'Sports' | 'Movies' | 'Science' | 'Geography';
 
+export type Difficulty = 'easy' | 'medium' | 'hard';
+
 export interface Statement {
   text: string;
   isLie: boolean;
